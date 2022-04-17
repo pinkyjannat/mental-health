@@ -12,8 +12,8 @@ const Service = () => {
     },[])
 
     return (
-        <div >
-         <h1 >service={service.length}</h1>
+        <div className='row g-4' >
+        
          {
           service.map(product =><Product
           key={product.id} product={product}></Product>)

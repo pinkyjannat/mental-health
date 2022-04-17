@@ -3,18 +3,21 @@
       "id": "625b9e05e145776105ead1ad",
       "service": "Problem Identifying",
       "picture": "https://img.freepik.com/free-vector/different-mental-disorders-concept_52683-45677.jpg?t=st=1650181778~exp=1650182378~hmac=57377709c7b54cd1cef6fe36536f5ef6792be4cb61d0891d3371fdbaa5528d3b&w=1060",
-      "details": "lorem ipsum"
+      "details": "lorem ipsum",
+      "price":1000
     },
     {
       "id": "625b9e0510568377fec870c4",
-      "service": "One to One counselling",
+      "service": "Face to Face counselling",
       "picture": "https://img.freepik.com/free-vector/psychological-help-landing-page_52683-45773.jpg?t=st=1650181932~exp=1650182532~hmac=8b071b8154bdbf0bf855bf95311098380d87480882ed66ca07c83cae85b71aed&w=1060",
-      "details": "lorem ipsum"
+      "details": "lorem ipsum",
+      "price":1600
     },
     {
       "id": "625b9e055153cdd6eb3f74ba",
-      "service": "Free tips for First visit",
+      "service": "Top Tips for faster result",
       "picture": "https://img.freepik.com/free-vector/mental-health-concept-mood-disorder-tips-anxiety_189033-1199.jpg?w=1060",
-      "details": "lorem ipsum"
+      "details": "lorem ipsum",
+      "price":2000
     }
   ]

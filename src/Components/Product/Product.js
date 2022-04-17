@@ -1,26 +1,26 @@
 import React from 'react';
-import { Card, CardGroup } from 'react-bootstrap';
+import{ Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
     // console.log(props.product)
-    const { service, picture, details } = product;
+    const { service, picture, details,price } = product;
     return (
-        <div>
-            <h1>this is service</h1>
-                <div className='col-sm-6 col-lg-4'>
+        <div className=' col-lg-4'>
+            
+                <div >
                 <Card >
                     <Card.Img variant="top" src={picture} />
                     <Card.Body>
-                        <Card.Title>{service}</Card.Title>
-                        <Card.Text>
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </Card.Text>
+                        <h3>{service}</h3>
+                        <p>{details}</p>
+                        <h3>${price}</h3>
                     </Card.Body>
-                    <Card.Footer>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                    </Card.Footer>
+                    <div className='mx-auto'>
+                        <Link to='/checkout'>
+                        <button className='btn btn-dark btn-lg mb-4 px-5' type='submit'> Details </button>
+                        </Link>
+                    </div>
                 </Card>
                 </div>
             </div>
