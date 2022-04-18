@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import pinky from'../../images/pinky.png';
-import About from '../About/About';
 
 const Bio = () => {
     return (
