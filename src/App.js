@@ -8,30 +8,29 @@ import CheckOut from './Components/CheckOut/CheckOut';
 import RequireAuth from './Components/Login/RequireAuth/RequireAuth';
 import Signup from './Components/SignUp/SignUp';
 import Bio from './Components/Bio/Bio';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   return (
     <div>
       <Header></Header>
       <Routes>
-      <Route path="/" element={<Home/>} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-        <Route path="/bio" element={<Bio/>}/>
+        <Route path="/bio" element={<Bio />} />
         <Route
-            path="/checkout"
-            element={
-              <RequireAuth>
-               <CheckOut />
-              </RequireAuth>
-                
-              
-            }
-          />
+          path="/checkout"
+          element={
+            <RequireAuth>
+              <CheckOut />
+            </RequireAuth>
+          }
+        />
       </Routes>
-      
+      <Footer></Footer>
     </div>
   );
 }

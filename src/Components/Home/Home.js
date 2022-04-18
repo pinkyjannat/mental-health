@@ -15,7 +15,6 @@ const Home = () => {
                 <h1 className=' text-center'>Services you need most</h1>
                 <Service></Service>
             </div>
-          <Footer/>
         </div>
 
     );

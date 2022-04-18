@@ -1,4 +1,4 @@
-import React,{useRef} from 'react';
+import React,{ useState} from 'react';
 import {Button,Form} from 'react-bootstrap';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import {Link, useNavigate} from 'react-router-dom';
@@ -8,6 +8,7 @@ import auth from '../../firebase.init';
 
 
 const SignUp = () => {
+    const[agree,setAgree]=useState(false);
 
     const [
         createUserWithEmailAndPassword,
@@ -15,6 +16,8 @@ const SignUp = () => {
         loading,
         error,
       ] = useCreateUserWithEmailAndPassword(auth);
+
+    
 
 
  const navigate = useNavigate();
@@ -28,11 +31,13 @@ if(user){
 
 const handleSignup =event =>{
     event.preventDefault();
-
-
     const email = event.target.email.value;
     const password = event.target.password.value;
-     createUserWithEmailAndPassword(email, password)
+
+    if(agree){
+        createUserWithEmailAndPassword(email, password)
+    }
+    
 }
     return (
         <div className='container w-50 mx-auto'>
@@ -50,14 +55,17 @@ const handleSignup =event =>{
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" name="password" placeholder="Password" required />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
+            <Form.Group onClick={()=>setAgree(!agree)} className="mb-3" controlId="formBasicCheckbox" >
+                <Form.Check className={agree? 'text-primary': "text-danger"} type="checkbox" label="Terms and condition" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            
+            <Button
+            disabled={!agree}
+             variant="primary w-50 mx-auto b-block" type="submit">
                 Submit
             </Button>
         </Form>
-        <p>Already have an account? <Link to='/login' className='text-danger text-decoration none pe-auto' onClick={navigateLogin}>Please login</Link></p>
+        <p>Already have an account? <Link to='/login' className='text-danger text-decoration-none pe-auto' onClick={navigateLogin}>Please login</Link></p>
     </div>
     );
 };
