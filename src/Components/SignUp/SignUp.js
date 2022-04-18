@@ -3,6 +3,7 @@ import {Button,Form} from 'react-bootstrap';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import {Link, useNavigate} from 'react-router-dom';
 import auth from '../../firebase.init';
+import Loading from '../Loading/Loading';
 
 
 
@@ -24,6 +25,10 @@ const SignUp = () => {
 
 const navigateLogin= e =>{
  navigate('/login')
+}
+
+if(loading){
+    return <Loading/>
 }
 if(user){
     navigate('/checkout')
