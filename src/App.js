@@ -7,7 +7,6 @@ import Header from './Components/Header/Header';
 import CheckOut from './Components/CheckOut/CheckOut';
 import RequireAuth from './Components/Login/RequireAuth/RequireAuth';
 import Signup from './Components/SignUp/SignUp';
-import Bio from './Components/Bio/Bio';
 import Footer from './Components/Footer/Footer';
 import NotFound from './Components/NotFound/NotFound';
 import Blogs from './Components/Blogs/Blogs';
@@ -23,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path='/signup' element={<Signup/>}/>
         <Route
           path="/checkout"
           element={

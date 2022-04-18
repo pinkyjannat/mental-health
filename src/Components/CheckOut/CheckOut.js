@@ -2,8 +2,8 @@ import React from 'react';
 
 const CheckOut = () => {
     return (
-        <div>
-            <h1>Please checkout</h1>
+        <div style={{height:'100vh'}}>
+            <h1 className='text-center'>Please checkout</h1>
         </div>
     );
 };
