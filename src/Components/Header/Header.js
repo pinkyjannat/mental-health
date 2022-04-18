@@ -19,16 +19,12 @@ const Header = () => {
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto ">
       <CustomLink  className=' px-2 text-light text-decoration-none fs-4' to="/checkout">CheckOut</CustomLink>
-      <CustomLink  className=' px-2 text-light text-decoration-none fs-4' to="/checkout">Blogs</CustomLink>
-      <CustomLink  className=' px-2 text-light text-decoration-none fs-4' to="/checkout">About</CustomLink>
+      <CustomLink  className=' px-2 text-light text-decoration-none fs-4' to="/blogs">Blogs</CustomLink>
+      <CustomLink  className=' px-2 text-light text-decoration-none fs-4' to="/about">About</CustomLink>
     </Nav>
-    <Nav.Link href='#bio'>Bio</Nav.Link>
     <Nav>
     {
-          
-            user ?  <Nav.Link onClick={handleSignOut} as={Link} to='/login'>SingOut</Nav.Link> :  <Nav.Link as={Link} to='/login'>Login</Nav.Link>
-          
-          
+            user ?  <Nav.Link onClick={handleSignOut} as={Link} to='/login'>SingOut</Nav.Link> :  <Nav.Link as={Link} to='/login'>Login</Nav.Link> 
       }
     </Nav>
   </Navbar.Collapse>

@@ -5,9 +5,9 @@ import googleplay from '../../images/googleplay.png'
 
 const Footer = () => {
 	return (
-		<div>
+		<div className='mt-auto'>
 			 <footer>
-    <section class="bg-dark text-white d-flex align-item-center justify-content-around pt-4 pb-4">
+    <section  class="bg-dark text-white d-flex align-item-center justify-content-around pt-4 pb-4">
       <div> <p>©2020. All rights reserved.</p></div>
      <div class=" apps">
        <h4>Get the App</h4>
