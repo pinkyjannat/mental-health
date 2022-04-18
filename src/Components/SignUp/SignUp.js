@@ -1,122 +1,65 @@
-import { useEffect, useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React,{useRef} from 'react';
+import {Button,Form} from 'react-bootstrap';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {Link, useNavigate} from 'react-router-dom';
 import auth from '../../firebase.init';
-import "../Login/Login.css";
-
-const Signup = () => {
-    const [name, setName] = useState('');
-    const [userInfo, setUserInfo] = useState({
-        email: "",
-        password: "",
-        confirmPass: "",
-    });
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-        general: "",
-    });
 
 
-    const [createUserWithEmailAndPassword, user, loading, hookError] =
-        useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-    const handleNameChange = event => {
-        setName(event.target.value)
-    }
 
-    const handleEmailChange = (e) => {
-        const emailRegex = /\S+@\S+\.\S+/;
-        const validEmail = emailRegex.test(e.target.value);
+const SignUp = () => {
 
-        if (validEmail) {
-            setUserInfo({ ...userInfo, email: e.target.value });
-            setErrors({ ...errors, email: "" });
-        } else {
-            setErrors({ ...errors, email: "Invalid email" });
-            setUserInfo({ ...userInfo, email: "" });
-        }
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
 
-    };
-    const handlePasswordChange = (e) => {
-        const passwordRegex = /.{5,}/;
-        const validPassword = passwordRegex.test(e.target.value);
 
-        if (validPassword) {
-            setUserInfo({ ...userInfo, password: e.target.value });
-            setErrors({ ...errors, password: "" });
-        } else {
-            setErrors({ ...errors, password: "Minimum 5 digit please" });
-            setUserInfo({ ...userInfo, password: "" });
-        }
-    };
+ const navigate = useNavigate();
 
-    const handleConfirmPasswordChange = (e) => {
-        if (e.target.value === userInfo.password) {
-            setUserInfo({ ...userInfo, confirmPass: e.target.value });
-            setErrors({ ...errors, password: "" });
-        } else {
-            setErrors({ ...errors, password: "Password's doesn't match" });
-            setUserInfo({ ...userInfo, confirmPass: "" });
-        }
-    };
+const navigateLogin= e =>{
+ navigate('/login')
+}
+if(user){
+    navigate('/checkout')
+}
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        // console.log(userInfo);
-        createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-    };
+const handleSignup =event =>{
+    event.preventDefault();
 
-    useEffect(() => {
-        if (hookError) {
-            switch (hookError?.code) {
-                case "auth/invalid-email":
-                    toast("Invalid email");
-                    break;
-                case "auth/invalid-password":
-                    toast("Invalid password");
-                    break;
-                default:
-                    toast("something went wrong");
-            }
-        }
-    }, [hookError]);
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-
-    useEffect(() => {
-        if (user) {
-            navigate(from);
-        }
-    }, [user]);
-
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+     createUserWithEmailAndPassword(email, password)
+}
     return (
-        <div className="login-container">
-            <div className="login-title">Sign up</div>
-            <form className="login-form" onSubmit={handleLogin}>
-                <input type='text' placeholder='your name' onBlur={handleNameChange}></input>
-                <input type="text" placeholder="Your Email" onBlur={handleEmailChange} />
-                {errors?.email && <p className="error-message">{errors.email}</p>}
-                <div className="relative">
-                    <input type="password" placeholder="password" onBlur={handlePasswordChange} />
-                    {errors?.password && <p className="error-message">{errors.password}</p>}
-                </div>
-                <input
-                    type="password"
-                    placeholder="confirm password"
-                    onChange={handleConfirmPasswordChange}
-                />
+        <div className='container w-50 mx-auto'>
+        <h2 className='text-center mt-2' > Please Sign Up Here</h2>
+        <Form  onSubmit={handleSignup}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" name="email" placeholder="Enter email" required/>
+                <Form.Text className="text-muted">
+                    We'll never share your email with anyone else.
+                </Form.Text>
+            </Form.Group>
 
-                <button>Sign up</button>
-
-                <ToastContainer />
-            </form>
-        </div>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" name="password" placeholder="Password" required />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
+        <p>Already have an account? <Link to='/login' className='text-danger text-decoration none pe-auto' onClick={navigateLogin}>Please login</Link></p>
+    </div>
     );
 };
 
-export default Signup;
+export default SignUp;

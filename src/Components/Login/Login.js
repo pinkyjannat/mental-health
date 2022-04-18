@@ -1,111 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import './Login.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import auth from '../../firebase.init';
-import CheckOut from '../CheckOut/CheckOut';
+import React,{useRef} from 'react';
+import {Button,Form} from 'react-bootstrap';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Login = () => {
-   
-    const [userInfo, setUserInfo] = useState({
-        email: "",
-        password: ""
-    })
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-        general: "",
-    })
+    const emailRef =useRef('');
+    const passRef= useRef('');
+    const navigate=useNavigate()
 
-    const [
-        signInWithEmailAndPassword,
-        user,
-        loading,
-        hookError,
-    ] = useSignInWithEmailAndPassword(auth);
-
-    const [signInWithGoogle, user1, loading1, error1] = useSignInWithGoogle(auth);
-
-    
-
-    const handleEmailChange = (e) => {
-        //  setEmail(e.target.value);
-        const emailRegex = /^(\S+)@(\S+)\.(\S+)$/;
-        const validEmail = emailRegex.test(e.target.value);
-
-        if (validEmail) {
-            setUserInfo({ ...userInfo, email: e.target.value });
-            setErrors({ ...errors, email: "" })
-        } else {
-            setErrors({ ...errors, email: "Invalid email" });
-            setUserInfo({ ...userInfo, email: "" });
-        }
+    const handleSubmit = event =>{
+        event.preventDefault();
+        const email=emailRef.current.value;
+        const password= passRef.current.value;
+        console.log(email,password)
     }
 
-    const handlePasswordChange = (e) => {
-        const passwordRegex = /.{5,}/;
-        const validPassword = passwordRegex.test(e.target.value);
-        if (validPassword) {
-            setUserInfo({ ...userInfo, password: e.target.value })
-            setErrors({ ...errors, password: "" });
-
-        } else {
-            setErrors({ ...errors, password: "minimum 5 digit please" });
-            setUserInfo({ ...userInfo, password: "" })
-        }
+    const navigateSignUp=()=>{
+       navigate('/signup')
     }
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        signInWithEmailAndPassword(userInfo.email, userInfo.password)
-    }
-
-    const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-
-    useEffect(() => {
-        if (user) {
-            navigate(from);
-        }
-    }, [user]);
-
-    useEffect(() => {
-        const error = hookError || error1;
-        if (error) {
-            switch (error?.code) {
-                case "auth/invalid-email":
-                    toast("invalid email");
-                    break;
-                default:
-                    case "auth/invalid-password":
-                        toast("invalid password");
-                    
-            }
-        }
-    }, [hookError,error1])
-
-  
     return (
-        <div className='login-container'>
-            <h2>This is login </h2>
-            <div className="login-title"></div>
-            <form className='login-form' onSubmit={handleLogin}>
-           
-                <input type='text' placeholder='your email' onChange={handleEmailChange}></input>
-                {errors?.email && <p className='error-message'>{errors.email}</p>}
-                <input type='password' placeholder='your password' onChange={handlePasswordChange}></input>
-                {errors?.password && <p className='error-message'>{errors.password}</p>}
-                <button><Link  className='text-decoration-none text-light'to='/home'>login</Link></button>
-                <button  onClick={() => signInWithGoogle()}><Link className='text-decoration-none text-light' to='/home'></Link>Sign in with Google</button>
-                <ToastContainer />
-                <p>Dont have a account? <Link to="/signup">Sign Up Here</Link></p>
+        <div className='container w-50 mx-auto'>
+            <h2 className='text-center mt-2' > Please Login</h2>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control ref={emailRef} type="email" placeholder="Enter email" required/>
+                    <Form.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                    </Form.Text>
+                </Form.Group>
 
-            </form>
-
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control ref={passRef} type="password" placeholder="Password" required />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox" label="Check me out" />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+            <p>New  here? <Link to='/signup' className='text-danger text-decoration none pe-auto' onClick={navigateSignUp}>Please Sign up</Link></p>
         </div>
     );
 };
