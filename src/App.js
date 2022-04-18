@@ -5,7 +5,7 @@ import Home from './Components/Home/Home';
 import Login from './Components/Login/Login';
 import Header from './Components/Header/Header';
 import CheckOut from './Components/CheckOut/CheckOut';
-import RequireAuth from './RequireAuth/RequireAuth';
+import RequireAuth from './Components/Login/RequireAuth/RequireAuth';
 import Signup from './Components/SignUp/SignUp';
 import Bio from './Components/Bio/Bio';
 
@@ -23,8 +23,10 @@ function App() {
         <Route
             path="/checkout"
             element={
-              
-                <CheckOut />
+              <RequireAuth>
+               <CheckOut />
+              </RequireAuth>
+                
               
             }
           />
