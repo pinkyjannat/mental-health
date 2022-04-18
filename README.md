@@ -16,5 +16,4 @@ This section has moved here:`live link` https://auth-mentalhealth.web.app/checko
 * protected route with requireAuth.
 
 ##### technology for this webpage
-*firebase authentication used for Authentication system 
-*firebase used for hosting this site on server.
+firebase authentication used for Authentication system and hosting the server
