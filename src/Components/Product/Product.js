@@ -6,7 +6,7 @@ const Product = ({ product }) => {
     // console.log(props.product)
     const { service, picture, details,price } = product;
     return (
-        <div className=' col-lg-4'>
+        <div className=' col-lg-4 '>
             
                 <div >
                 <Card >

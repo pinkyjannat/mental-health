@@ -3,7 +3,7 @@
     width: 350px;
     margin: 4rem auto;
     height: 500px;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 40px;
     box-sizing: border-box;
     background: #ecf0f3;
@@ -54,26 +54,21 @@
     padding-left: 20px;
     height: 50px;
     font-size: 14px;
-    border-radius: 50px;
-    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+    border-radius: 15px;
+    box-shadow: inset 6px 6px 6px #cbced1;
 }
 
 .login-container button {
     color: white;
     margin-top: 20px;
-    background: #1da1f2;
+    background:black;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     font-weight: 900;
-    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
-    transition: 0.5s;
+    box-shadow: 6px 6px 6px #cbced1;
+    
 }
-
-.login-container button:hover {
-    box-shadow: none;
-}
-
 
 .error-message{
     font-size: 12px;

@@ -7,6 +7,7 @@ import auth from '../../firebase.init';
 import "../Login/Login.css";
 
 const Signup = () => {
+    const [name, setName] = useState('');
     const [userInfo, setUserInfo] = useState({
         email: "",
         password: "",
@@ -18,10 +19,13 @@ const Signup = () => {
         general: "",
     });
 
-    const [showPass, setShowPass] = useState(false);
 
     const [createUserWithEmailAndPassword, user, loading, hookError] =
         useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+    const handleNameChange = event => {
+        setName(event.target.value)
+    }
 
     const handleEmailChange = (e) => {
         const emailRegex = /\S+@\S+\.\S+/;
@@ -35,17 +39,16 @@ const Signup = () => {
             setUserInfo({ ...userInfo, email: "" });
         }
 
-        // setEmail(e.target.value);
     };
     const handlePasswordChange = (e) => {
-        const passwordRegex = /.{6,}/;
+        const passwordRegex = /.{5,}/;
         const validPassword = passwordRegex.test(e.target.value);
 
         if (validPassword) {
             setUserInfo({ ...userInfo, password: e.target.value });
             setErrors({ ...errors, password: "" });
         } else {
-            setErrors({ ...errors, password: "Minimum 6 characters!" });
+            setErrors({ ...errors, password: "Minimum 5 digit please" });
             setUserInfo({ ...userInfo, password: "" });
         }
     };
@@ -55,14 +58,14 @@ const Signup = () => {
             setUserInfo({ ...userInfo, confirmPass: e.target.value });
             setErrors({ ...errors, password: "" });
         } else {
-            setErrors({ ...errors, password: "Password's don't match" });
+            setErrors({ ...errors, password: "Password's doesn't match" });
             setUserInfo({ ...userInfo, confirmPass: "" });
         }
     };
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(userInfo);
+        // console.log(userInfo);
         createUserWithEmailAndPassword(userInfo.email, userInfo.password);
     };
 
@@ -70,10 +73,10 @@ const Signup = () => {
         if (hookError) {
             switch (hookError?.code) {
                 case "auth/invalid-email":
-                    toast("Invalid email provided, please provide a valid email");
+                    toast("Invalid email");
                     break;
                 case "auth/invalid-password":
-                    toast("Wrong password. Intruder!!");
+                    toast("Invalid password");
                     break;
                 default:
                     toast("something went wrong");
@@ -95,12 +98,12 @@ const Signup = () => {
         <div className="login-container">
             <div className="login-title">Sign up</div>
             <form className="login-form" onSubmit={handleLogin}>
-                <input type="text" placeholder="Your Email" onChange={handleEmailChange} />
+                <input type='text' placeholder='your name' onBlur={handleNameChange}></input>
+                <input type="text" placeholder="Your Email" onBlur={handleEmailChange} />
                 {errors?.email && <p className="error-message">{errors.email}</p>}
                 <div className="relative">
-                    <input type={showPass ? "text" : "password"} placeholder="password" onChange={handlePasswordChange} />
+                    <input type="password" placeholder="password" onBlur={handlePasswordChange} />
                     {errors?.password && <p className="error-message">{errors.password}</p>}
-                    <p className="absolute top-3 right-5" onClick={() => setShowPass(!showPass)}>🔥</p>
                 </div>
                 <input
                     type="password"
@@ -110,8 +113,6 @@ const Signup = () => {
 
                 <button>Sign up</button>
 
-                {/* {error && <p className="error-message">{error}</p> } */}
-                {/* {hookError && <p className="error-message">{hookError?.message}</p>} */}
                 <ToastContainer />
             </form>
         </div>

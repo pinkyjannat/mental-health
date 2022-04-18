@@ -12,7 +12,7 @@ const Service = () => {
     },[])
 
     return (
-        <div className='row g-4' >
+        <div className='row g-4 shadow p-3 mb-5 bg-body rounded' >
         
          {
           service.map(product =><Product
